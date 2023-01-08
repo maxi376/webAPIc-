@@ -9,7 +9,7 @@ namespace WEBapi.Models
         {
         }
 
-        public DbSet<Userm> Userms { get; set; } = null!;
-        public DbSet<Device> Devices { get; set; } = null!;
+        public DbSet<Userm> Userm { get; set; } = null!;
+        public DbSet<Device> Device { get; set; } = null!;
     }
 }

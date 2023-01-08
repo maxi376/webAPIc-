@@ -21,22 +21,22 @@ namespace WEBapi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Device>>> GetDevices()
         {
-            if (_dbContext.Devices == null)
+            if (_dbContext.Device == null)
             {
                 return NotFound();
             }
-            return await _dbContext.Devices.ToListAsync();
+            return await _dbContext.Device.ToListAsync();
         }
 
         // GET: api/Devices/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Device>> GetDevice(int deviceId)
         {
-            if (_dbContext.Devices == null)
+            if (_dbContext.Device == null)
             {
                 return NotFound();
             }
-            var device = await _dbContext.Devices.FindAsync(deviceId);
+            var device = await _dbContext.Device.FindAsync(deviceId);
 
             if (device == null)
             {
@@ -50,7 +50,7 @@ namespace WEBapi.Controllers
         [HttpPost]
         public async Task<ActionResult<Device>> PostDevice(Device device)
         {
-            _dbContext.Devices.Add(device);
+            _dbContext.Device.Add(device);
             await _dbContext.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetDevice), new { id = device.DeviceId }, device);
@@ -90,18 +90,18 @@ namespace WEBapi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteDevice(int deviceId)
         {
-            if (_dbContext.Devices == null)
+            if (_dbContext.Device == null)
             {
                 return NotFound();
             }
 
-            var device = await _dbContext.Devices.FindAsync(deviceId);
+            var device = await _dbContext.Device.FindAsync(deviceId);
             if (device == null)
             {
                 return NotFound();
             }
 
-            _dbContext.Devices.Remove(device);
+            _dbContext.Device.Remove(device);
             await _dbContext.SaveChangesAsync();
 
             return NoContent();
@@ -110,7 +110,7 @@ namespace WEBapi.Controllers
 
         private bool DeviceExists(long deviceId)
         {
-            return (_dbContext.Devices?.Any(e => e.DeviceId == deviceId)).GetValueOrDefault();
+            return (_dbContext.Device?.Any(e => e.DeviceId == deviceId)).GetValueOrDefault();
         }
     }
 }

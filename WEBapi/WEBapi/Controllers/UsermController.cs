@@ -23,7 +23,7 @@ namespace WEBapi.Controllers
         {
             //try
             //{
-                if (_dbContext.Userms == null)
+                if (_dbContext.Userm == null)
                 {
                     return NotFound();
                 }
@@ -31,7 +31,7 @@ namespace WEBapi.Controllers
 
                 //List<Userm> listUserms = _dbContext.Userms.ToList();
                 //return Ok(listUserms);
-                return await _dbContext.Userms.ToListAsync();
+                return await _dbContext.Userm.ToListAsync();
 
             //}catch(Exception ex) { 
             //    return BadRequest(ex.Message);
@@ -42,11 +42,11 @@ namespace WEBapi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Userm>> GetUserm(int usermId)
         {
-            if (_dbContext.Userms == null)
+            if (_dbContext.Userm == null)
             {
                 return NotFound();
             }
-            var userm = await _dbContext.Userms.FindAsync(usermId);
+            var userm = await _dbContext.Userm.FindAsync(usermId);
 
             if (userm == null)
             {
@@ -60,7 +60,7 @@ namespace WEBapi.Controllers
         [HttpPost]
         public async Task<ActionResult<Userm>> PostUserm(Userm userm)
         {
-            _dbContext.Userms.Add(userm);
+            _dbContext.Userm.Add(userm);
             await _dbContext.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetUserm), new { id = userm.UsermId }, userm);
@@ -100,18 +100,18 @@ namespace WEBapi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUserm(int usermId)
         {
-            if (_dbContext.Userms == null)
+            if (_dbContext.Userm == null)
             {
                 return NotFound();
             }
 
-            var userm = await _dbContext.Userms.FindAsync(usermId);
+            var userm = await _dbContext.Userm.FindAsync(usermId);
             if (userm == null)
             {
                 return NotFound();
             }
 
-            _dbContext.Userms.Remove(userm);
+            _dbContext.Userm.Remove(userm);
             await _dbContext.SaveChangesAsync();
 
             return NoContent();
@@ -120,7 +120,7 @@ namespace WEBapi.Controllers
 
         private bool UsermExists(long usermId)
         {
-            return (_dbContext.Userms?.Any(e => e.UsermId == usermId)).GetValueOrDefault();
+            return (_dbContext.Userm?.Any(e => e.UsermId == usermId)).GetValueOrDefault();
         }
     }
 }
